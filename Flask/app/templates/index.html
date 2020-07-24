@@ -1,0 +1,171 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<!-- Editable table -->
+<div class="card">
+  <div class="p-3 mb-2 bg-dark text-white" style="margin-bottom: 40px;">Saídas pendentes</div>
+  <div class="card-body" style = "padding: 0.80rem;">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+            <button class="btn btn-lg btn-info" onclick="$('#modal').modal('show')" style="background-color: #17b888;border-color:#17b888;float: right;margin-bottom: 10px;">
+              <span>Entrada</span>
+          </button>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th class="text-center">Nome</th>
+            <th class="text-center">Tipo de Serviço</th>
+            <th class="text-center">Empresa</th>
+            <th class="text-center">Documento</th>
+            <th class="text-center">Apartamento</th>
+            <th class="text-center">Entrada</th>
+            <th class="text-center">Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in atividades">
+            <td class="pt-3-half">[{x.prestador.nome}]</td>
+            <td class="pt-3-half">[{x.prestador.tipo_servico}]</td>
+            <td class="pt-3-half">[{x.prestador.empresa}]</td>
+            <td class="pt-3-half">[{x.prestador.doc}]</td>
+            <td class="pt-3-half">[{x.apt}]</td>
+            <td class="pt-3-half">[{x.h_entrada}]</td>
+            <td>
+              <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0" ng-click="darSaida(x)" >Dar Saída</button></span>
+            </td>
+          </tr>
+          <!-- This is our clonable table line -->
+    
+         
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', function () {
+      $ = window.jQuery
+  })
+</script>
+
+<!-- Editable table -->
+{% endblock %}
+
+{% block modal %} 
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">Entrada</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                         
+                
+                  <div class="tab-content pl-3 p-1" id="myTabContent">
+                      <div class="tab-pane fade show active" id="home" role="tabpanel">
+                          <div>
+                              <div class="row">
+                                  <div class="col-6">
+                                      <div class="form-group">
+                                          <label class="control-label mb-1">Documento</label>
+                                          <input type="text" class="form-control cc-exp" ng-model="documento">
+                                          <label class="control-label mb-1">Destino</label>
+                                          <select class="form-control" ng-model="destinoSelecionado" ng-options="x for x in destinos">
+                                            <option value = "" >Selecione um destino</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="col-6">
+                                      <div class="form-group">
+                                        <label class="control-label mb-1">Sobre</label>
+                                          <table class="table">
+                                            <tr>
+                                              <th>Nome:</th>
+                                              <td>[{ (prestadores | filterJson :'doc':documento)[0].nome }]</td>
+                                            </tr>
+                                            <tr>
+                                              <th>Empresa:</th>
+                                              <td>[{ (prestadores | filterJson :'doc':documento)[0].empresa }]</td>
+                                            </tr>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+          
+                              <div class="row" ng-hide="flag_window">
+                                  <div class="col-12">
+                                      <button ng-init="flag_saving = false" ng-click="add()" class="btn btn-lg btn-info btn-block" style="background-color: #17b888;border-color:#17b888">
+                                          <span ng-hide="flag_saving" >Validar Entrada</span>
+                                      </button>
+                                  </div>
+                              </div>
+          
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="alert" ng-class="classmsg" role="alert" ng-init="mensagem=null" ng-show="mensagem" ng-bind-html="mensagem">
+              </div>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalyesno" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{confirm.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{confirm.message}]
+              </div>
+          </div> 
+          <div class="modal-footer">
+              <button type="button" class="btn btn-success" ng-click="confirm.func()">Sim</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="msgbox" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{msgbox.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{msgbox.message}]
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >OK</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+
+{% block js %} <!-- #bloco de conteudo -->
+<script src="{{ url_for('static', filename='JS/angular/index.js') }}"></script>
+{% endblock %}

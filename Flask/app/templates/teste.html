@@ -1,0 +1,131 @@
+
+
+{% extends 'base.html'%}
+
+{% block content %}
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Alterar Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body" style="padding: 0px;">
+                           
+                    <ul class="nav nav-tabs" id="myTab" role="tablist" >
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-selected="true">Novo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Em Massa</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content pl-3 p-1" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel">
+                            <div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">Modelo</label>
+                                            <input type="text" class="form-control cc-exp" ng-model="selected.modelo">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">Item</label>
+                                            <input type="text" class="form-control cc-exp" ng-model="selected.numero_item">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">Descrição</label>
+                                            <input type="text" class="form-control cc-exp" ng-model="selected.descricao">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">por maquina</label>
+                                            <input type="text" class="form-control cc-exp" ng-model="selected.qtd_p_maquina">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">vida util</label>
+                                            <input type="text" class="form-control cc-exp" ng-model="selected.vida_util">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">recomendado</label>
+                                            <input type="text" class="form-control cc-exp" ng-model="selected.recomendado">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">parque</label>
+                                            <input type="text" class="form-control cc-exp" ng-model="selected.parque">
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="row" ng-show="flag_window">
+                                    <div class="col-8">
+                                        <button ng-init="flag_saving = false" ng-click="save()" class="btn btn-lg btn-info btn-block" style="background-color: #17b888;border-color:#17b888">
+                                            <span ng-hide="flag_saving" >Salvar</span>
+                                            <span ng-hide="!flag_saving">Salvando</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-4">
+                                        <button ng-init="flag_deleting = false" ng-click="delete()" class="btn btn-lg btn-info btn-block" style="background-color: #cc204f;border-color:#cc204f">
+                                            <span ng-hide="flag_deleting" >Deletar</span>
+                                            <span ng-hide="!flag_deleting">Deletando</span>
+                                        </button>
+                                    </div>
+                                </div>
+            
+                                <div class="row" ng-hide="flag_window">
+                                    <div class="col-12">
+                                        <button ng-init="flag_saving = false" ng-click="add()" class="btn btn-lg btn-info btn-block" style="background-color: #17b888;border-color:#17b888">
+                                            <span ng-hide="flag_saving" >Adcionar</span>
+                                            <span ng-hide="!flag_saving">Adcionando</span>
+                                        </button>
+                                    </div>
+                                </div>
+            
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel">
+                            <h3>Menu 1</h3>
+                            <p>Some content here.</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', function () {
+        $ = window.jQuery
+        $("#modal").modal("show")
+    })
+</script>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,208 @@
+{% extends 'admin_base.html'%}
+
+{% block content %}
+<!-- Editable table -->
+<div class="card">
+    <nav class="navbar navbar-light bg-dark justify-content-between" style="color: aliceblue;">
+      <a class="navbar-brand" style="color: aliceblue;">Funcionários Cadastrados</a>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar no Sistema" aria-label="Search" style="">
+
+      </form>
+    </nav>
+
+  </div>
+
+  <table class="table table-hover table-hover">
+    <thead class="thead-dark"></thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Função</th>
+        <th scope="col">Descanso</th>
+        <th scope="col">Usuário de acesso</th>
+        <th scope="col">Atividades</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Igor Marcelo</td>
+        <td>Porteiro</td>
+        <td>Quinta-feira</td>
+        <td>igor</td>
+        <td>
+        
+        <span class="table-remove"><button type="button" onclick="$('#modal').modal('show')" class="btn btn-danger btn-rounded btn-sm my-0">Editar</button></span>  
+        </td>
+    </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jose Ari</td>
+        <td>Zelador</td>
+        <td>Quarta-feira</td>
+        <td>ari</td>
+        <td>
+            <span class="table-remove"><button type="button"onclick="$('#modal').modal('show')"  class="btn btn-danger btn-rounded btn-sm my-0">Editar</button></span>  
+            </td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Manoel Lino</td>
+        <td>Zelado Chefe</td>
+        <td>Sexta-feira</td>
+        <td>manoel</td>
+        <td>
+        <span class="table-remove"><button type="button" onclick="$('#modal').modal('show')" class="btn btn-danger btn-rounded btn-sm my-0">Editar</button></span>  
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+{% block modal %} 
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">Atualizar Dados de Funcionários</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                         
+                  <ul class="nav nav-tabs" id="myTab" role="tablist" >
+                  </ul>
+                  <div class="tab-content pl-3 p-1" id="myTabContent">
+                      <div class="tab-pane fade show active" id="home" role="tabpanel">
+                          <div>
+                          
+                            <div class="p-3 mb-2 bg-dark text-white" style="text-align: center;">Atualizar Dados de Funcionário</div>
+                            <form>
+                                <div class="form-row">
+                                  <div class="col-md-4 mb-3">
+                                    <label for="validationDefault01">Nome</label>
+                                    <input type="text" class="form-control" id="validationDefault01" placeholder="Nome" required>
+                                  </div>
+                                  <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Documento</label>
+                                    <input type="text" class="form-control" id="validationDefault02" placeholder="Documento" required>
+                                  </div>
+                                  <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Data admissão</label>
+                                    <input type="text" class="form-control" id="validationDefault02" placeholder="Data admissão" required>
+                                  </div>
+                                  <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Função</label>
+                                    <input type="text" class="form-control" id="validationDefault02" placeholder="Função" required>
+                                  </div>
+                                  <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Entrada</label>
+                                    <input type="text" class="form-control" id="validationDefault02" placeholder="Entrada" required>
+                                  </div>
+                                  <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Saída</label>
+                                    <input type="text" class="form-control" id="validationDefault02" placeholder="Saída"  required>
+                                  </div>
+                                  <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Descanso</label>
+                                    <input type="text" class="form-control" id="validationDefault02" placeholder="Folga"  required>
+                                  </div>
+                                  <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Endereço</label>
+                                    <input type="text" class="form-control" id="validationDefault02" placeholder="Endereço "  required>
+                                  </div>
+                                
+                                <div class="form-row">
+                                  <div class="col-md-6 mb-3">
+                                    <label for="validationDefault03">Usuário</label>
+                                    <input type="text" class="form-control" id="validationDefault03" placeholder="Usuário" required>
+                                  </div>
+                                  <div class="col-md-3 mb-3">
+                                    <label for="validationDefault04">Senha</label>
+                                    <input type="text" class="form-control" id="senha" placeholder="Senha" required>
+                                  </div>
+                                  <div class="col-md-3 mb-3">
+                                    <label for="validationDefault05">Senha</label>
+                                    <input type="text" class="form-control" id="senha1" placeholder="Repita" required>
+                                  </div>
+                                </div>
+                               
+                                </div>
+                        
+                              </form>
+          
+                              <div class="row" ng-hide="flag_window">
+                                  <div class="col-12">
+                                      <button ng-init="flag_saving = false" ng-click="add()" class="btn btn-lg btn-info btn-block" style="background-color: #17b888;border-color:#17b888">
+                                          <span ng-hide="flag_saving" >Salva Alterações</span>
+                                      </button>
+                                  </div>
+                              </div>
+          
+                          </>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="alert" ng-class="classmsg" role="alert" ng-init="mensagem=null" ng-show="mensagem" ng-bind-html="mensagem">
+              </div>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalyesno" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{confirm.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{confirm.message}]
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-success" ng-click="confirm.func()">Sim</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="msgbox" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{msgbox.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{msgbox.message}]
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >OK</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+{% block js %} <!-- #bloco de conteudo -->
+<script src="{{ url_for('static', filename='JS/angular/index.js') }}"></script>
+{% endblock %}
+
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html'%}
+
+{% block content%}
+
+<div class="p-3 mb-2 bg-dark text-white">Cadastro de Prestador</div>
+<form action="{{url_for('insert')}}" method="POST">
+
+    <div class="form-group">
+      <label for="formGroupExampleInput">Nome Completo</label>
+      <input type="text" class="form-control" name="nome" placeholder="Insira seu nome Completo">
+    </div>
+    
+    <div class="form-group">
+      <label for="formGroupExampleInput2">Documento</label>
+      <input type="text" class="form-control" name="Documento" placeholder="Insira um Documento RG/CPF/CNH">
+    </div>
+    <div class="form-group">
+      <label for="formGroupExampleInput2"></label>
+      <input type="text" class="form-control" name="empresa" placeholder="Insira a empresa de origem">
+    </div>
+
+    <div class="form-group">
+        <label for="tipo">Tipo de Serviço</label>
+        <select class="form-control" name="tipo">
+          <option>Entrega</option>
+          <option>Manutenção</option>
+          <option>Obra</option>
+          <option>Mudança</option>
+          <option>Outros</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
+<button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
+  </form>
+         
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

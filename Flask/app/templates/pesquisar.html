@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+
+{% block content%}
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Documento ou  nome" aria-label="Pesquisar">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+    </form>
+  </nav>
+  <table class="table">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Empresa</th>
+        <th scope="col">Documento</th>
+        <th scope="col">Apartamento</th>
+        <th scope="col">Entrada</th>
+        <th scope="col">Saída</th>
+      </tr>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>João da Silva</td>
+        <td>Entrega</td>
+        <td>Zona sul</td>
+        <td>00202020202-21</td>
+        <td>902</td>
+        <td>12:00</td>
+        <td>12:40</td>
+        <td><button type="button" class="btn btn-dark">Visualizar</button></td>
+        
+      </tr>
+ 
+    </tbody>
+  </table>
+
+{% endblock %}

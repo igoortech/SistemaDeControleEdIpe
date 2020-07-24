@@ -1,0 +1,67 @@
+{% extends 'admin_base.html'%}
+
+
+
+{% block content %}
+
+
+<div class="row justify-content-start">
+  <div class="col-md-6">
+    <div class="input-group" >
+      <div class="input-group-prepend">
+        <button type="submit" class="btn btn-danger btn-rounded btn-sm my-0">Enviar</span></button>
+      </div>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="inputGroupFile01"
+          aria-describedby="inputGroupFileAddon01">
+        <label class="custom-file-label" for="inputGroupFile01">Selecione seu arquivo de ponto</label>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Selecione o Funcionario:</label>
+  </div>
+  <div class="col-md-3">
+    <select class="form-control">
+      <option>Jose Ari</option>
+      <option>Igor Marcelo</option>
+      <option>Manoel Lino</option>
+    </select>
+  </div>
+
+  <div class="col-md-12" style="padding:20px">
+    <table class="table table-hover table-hover" style="margin-right: 300px;">
+       <tr style="background-color: #002140;color:white">
+         <th>Entrada </th>
+         <th>Almoço </th>
+         <th>Volta </th>
+         <th>Saída</th>
+         <th>Jornada</th>
+       </tr>
+       <tr>
+         <td>7:00</td>
+         <td>10:40 </td>
+         <td>13:00 </td>
+         <td>16:40</td>
+         <td>xxxxx </td>
+       </tr>
+       <tr>
+         <td>7:00</td>
+         <td>10:40 </td>
+         <td>13:00 </td>
+         <td>16:40</td>
+         <td>xxxxx </td>
+       </tr>
+      </table> 
+  </div>
+
+  
+</div>
+
+
+  {% endblock %}
+
+
+{% block js %} <!-- #bloco de conteudo -->
+<script src="{{ url_for('static', filename='JS/angular/index.js') }}"></script>
+{% endblock %}

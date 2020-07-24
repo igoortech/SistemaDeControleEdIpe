@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Sistema de Controle Edifício Ipê</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/icofont/icofont.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/venobox/venobox.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/owl.carousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/aos/aos.css') }}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  <style>
+    #topbar .contact-info li + li {
+     margin-left: 0px; 
+}
+  </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl" >
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-none d-lg-block">
+    <div class="container d-flex">
+      <div class="contact-info mr-auto">
+        <!--<ul>
+          <li><i class="icofont-envelope"></i><a href="mailto:contact@example.com">ed.copacabana.ipe@gmail.com</a></li>
+          <li><i class="icofont-phone"></i> (21) 3079-7887</li>
+          <li><i class="icofont-clock-time icofont-flip-horizontal"></i> Terça  9am 14:04 </li>
+        </ul> -->
+        <div class="container d-flex">
+
+          <div class="logo mr-auto">
+            <h2 class="text-light"><a href="/"><span style="font-size: 0.6em;">Sistema De Controle Admin</span></a></h2>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+          </div>
+    
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li class="active"><a href="/">Principal</a></li>
+              <li><a href="/cadastrar">Cadastrar Prestador</a></li>
+              <li><a href="/prestador">Prestadores</a></li>
+              <li><a href="/registro">Registro de Atividades</a></li>
+              <li><a href="/addfun">Cadastrar Funcionario</a></li>
+              <li><a href="/func">Funcionários</a></li>
+              <li><a href="/relogio">Relógio de Ponto</a></li>
+              <li><a href="/Relatório">Relatório</a></li>
+              <li><a href="/logout">Sair</a></li>
+              
+              </ul>
+         
+          </nav><!-- .nav-menu -->
+    
+        </div>
+      </div>
+      <div class="cta">
+        <a href="#" class="scrollto">Bem-vindo - {{ user.nome.split()[0] }}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+
+  <main role="main">
+    <br>
+    <br>
+    <br>
+    <div class="container">
+      {% block content %} <!-- #bloco de conteudo -->
+      {% endblock %}
+
+      {% block modal %} <!-- #bloco de conteudo -->
+      {% endblock %}
+    </div> <!-- /container -->
+
+  </main>
+  <!-- ======= Footer ======= -->
+
+  {% with messages = get_flashed_messages() %} <!--BLOCO RESPONSAVEL POR RECEBER OS ALERTAS DO BACK END-->
+  {% if messages %}
+
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="alert alert-danger" role="alert">
+          <ul class="flashes">
+              {% for message in messages %}
+              <li>{{message}}</li>
+              {% endfor %}
+          </ul>
+          </div>
+      </div>  
+    </div>
+  </footer>
+  {% endif %}
+{% endwith %}
+
+<!-- End Footer -->
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <p class="lead">Todos os direitos reservados by Igor , Melque Developers</p>
+
+  </div>
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  {% block js %} <!-- #bloco de conteudo -->
+  {% endblock %}
+
+</body>
+
+</html>

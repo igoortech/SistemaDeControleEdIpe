@@ -1,0 +1,55 @@
+{% extends 'admin_base.html'%}
+
+{% block content %}
+
+<table class="table table-hover table-hover">
+    <thead class="thead-dark"></thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Função</th>
+        <th scope="col">Descanso</th>
+        <th scope="col">Usuário de acesso</th>
+        <th scope="col">Atividades</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Igor Marcelo</td>
+        <td>Porteiro</td>
+        <td>Quinta-feira</td>
+        <td>igor</td>
+        <td>
+        
+        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Visualizar</button></span>  
+        </td>
+    </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jose Ari</td>
+        <td>Zelador</td>
+        <td>Quarta-feira</td>
+        <td>ari</td>
+        <td>
+            <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Visualizar</button></span>  
+            </td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Manoel Lino</td>
+        <td>Zelado Chefe</td>
+        <td>Sexta-feira</td>
+        <td>manoel</td>
+        <td>
+        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Visualizar</button></span>  
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {% endblock %}
+
+
+{% block js %} <!-- #bloco de conteudo -->
+<script src="{{ url_for('static', filename='JS/angular/index.js') }}"></script>
+{% endblock %}

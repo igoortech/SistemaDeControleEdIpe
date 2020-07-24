@@ -1,0 +1,86 @@
+{% extends 'admin_base.html'%}
+
+{% block content %}
+<div class="p-3 mb-2 bg-dark text-white" style="text-align: left; font-size: 20px;">Cadastro de Funcionários</div>
+<form>
+    <div class="form-row">
+      <div class="col-md-4 mb-3">
+        <label for="validationDefault01">ID_Ponto</label>
+        <input type="number" class="form-control" ng-model="campos.id_ponto" placeholder="Id do ponto" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationDefault01">Nome</label>
+        <input type="text" class="form-control" ng-model="campos.nome" placeholder="Nome" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationDefault02">Documento</label>
+        <input type="text" class="form-control" ng-model="campos.documento" placeholder="111111-11111" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationDefault02">Data admissão</label>
+        <input type="text" class="form-control" ng-model="campos.data_admissao" placeholder="XX/XX/XXXX" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationDefault02">Função</label>
+        <input type="text" class="form-control" ng-model="campos.func"  placeholder="Função" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationDefault02">Entrada</label>
+        <input type="text" class="form-control" ng-model="campos.entrada"  placeholder="Entrada" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationDefault02">Saída</label>
+        <input type="text" class="form-control" ng-model="campos.saida" placeholder="Saída"  required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationDefault02">Descanso</label>
+        <input type="text" class="form-control" ng-model="campos.dia_folga"  placeholder="Folga"  required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationDefault02">Endereço</label>
+        <input type="text" class="form-control" ng-model="campos.endereco" placeholder="Endereço "  required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationDefault02">Usuário</label>
+      <input type="text" class="form-control" ng-model="campos.username" placeholder="Nome de usário "  required>
+  </div>
+  <div class="col-md-4 mb-3">
+    <label for="validationDefault02">Senha</label>
+    <input type="text" class="form-control" ng-model="campos.senha" ng-init="campos.senha = '' " placeholder="Digite uma senha " >
+</div>
+<div class="col-md-4 mb-3">
+  <label for="validationDefault02">Senha</label>
+  <input type="text" class="form-control" ng-model="campos.senha2" ng-init="campos.senha2 = '' " placeholder="Insira a senha novamente ">
+</div>
+
+    <button class="btn btn-primary btn-block bg-dark" ng-click="cadastra()" >Realizar Cadastro</button>
+  </form>
+
+  {% endblock%}
+
+  {% block js %}
+  <script src="{{ url_for('static', filename='JS/angular/cadastrafun.js') }}"></script>
+  {% endblock %}
+
+
+  {% block modal %} 
+
+<div class="modal fade" id="msgbox" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{msgbox.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{msgbox.message}]
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >OK</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

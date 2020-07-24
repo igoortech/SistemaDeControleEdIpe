@@ -1,0 +1,165 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<!-- Editable table -->
+<div class="card">
+    <nav class="navbar navbar-light bg-dark justify-content-between" style="color: aliceblue;">
+      <a class="navbar-brand" style="color: aliceblue;">Prestadores</a>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar no Sistema" aria-label="Search" ng-model="campoPesquisa">
+
+      </form>
+    </nav>
+
+  </div>
+
+  <div class="card-body" style = "padding: 0.80rem;">
+
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th class="text-center">Nome</th>
+            <th class="text-center">Tipo de Serviço</th>
+            <th class="text-center">Empresa</th>
+            <th class="text-center">Documento</th>
+            <th class="text-center">Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <tr ng-repeat="x in prestadores | filter : campoPesquisa"> <!-- pesquisa na lista de prestadores todos os registros que contenham o valor que esta em campoPesquisa -->
+              <td class="pt-3-half">[{x.nome}]</td>
+              <td class="pt-3-half">[{x.tipo_servico}]</td>
+              <td class="pt-3-half">[{x.empresa}]</td>
+              <td class="pt-3-half">[{x.doc}]</td>
+              <td>
+              <a href=""><span class="table-remove"><button type="button" ng-click="editar(x)" class="btn btn-danger btn-rounded btn-sm my-0">Editar</button>
+              </span></a>
+            
+            </td>
+          </tr>
+          <!-- This is our clonable table line -->
+    
+         
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block modal %} 
+
+<div class="modal fade" id="modalyesno" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{confirm.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{confirm.message}]
+              </div>
+          </div> 
+          <div class="modal-footer">
+              <button type="button" class="btn btn-success" ng-click="confirm.func()">Sim</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="msgbox" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{msgbox.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{msgbox.message}]
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >OK</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">Atualizar Dados de Prestadores</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                         
+                  <ul class="nav nav-tabs" id="myTab" role="tablist" >
+                  </ul>
+                  <div class="tab-content pl-3 p-1" id="myTabContent">
+                      <div class="tab-pane fade show active" id="home" role="tabpanel">
+                          <div>
+                          
+                                <form>
+                                
+                                    <div class="form-group">
+                                      <label for="formGroupExampleInput">Nome Completo</label>
+                                      <input type="text" class="form-control" name="nome" placeholder="Insira seu nome Completo" ng-model="prestador_selecionado.nome">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                      <label for="formGroupExampleInput2">Documento</label>
+                                      <input type="text" class="form-control" name="Documento" placeholder="Insira um Documento RG/CPF/CNH" ng-model="prestador_selecionado.doc">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="formGroupExampleInput2">Empresa</label>
+                                      <label for="formGroupExampleInput2"></label>
+                                      <input type="text" class="form-control" name="empresa" placeholder="Insira a empresa de origem" ng-model="prestador_selecionado.empresa">
+                                    </div>
+                                
+                                    <div class="form-group">
+                                      <label for="formGroupExampleInput2">Tipo de Serviço</label>
+                                      <input type="text" class="form-control" name="Tipo" placeholder="Tipo de Serviço" ng-model="prestador_selecionado.tipo_servico">
+                                    </div>
+          
+                              <div class="row" ng-hide="flag_window">
+                                  <div class="col-12">
+                                      <button ng-init="flag_saving = false" ng-click="atualizaPrestador()" class="btn btn-lg btn-info btn-block" style="background-color: #17b888;border-color:#17b888">
+                                          <span ng-hide="flag_saving" data-dismiss="modal">Salva Alterações</span>
+                                      </button>
+                                  </div>
+                              </div>
+          
+                          </>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="alert" ng-class="classmsg" role="alert" ng-init="mensagem=null" ng-show="mensagem" ng-bind-html="mensagem">
+              </div>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+{% block js %} <!-- #bloco de conteudo -->
+<script src="{{ url_for('static', filename='JS/angular/prestador.js') }}"></script>
+{% endblock %}
+
+

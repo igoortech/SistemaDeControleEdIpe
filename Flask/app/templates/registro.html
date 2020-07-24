@@ -1,0 +1,63 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<!-- Editable table -->
+<div class="card">
+    <nav class="navbar navbar-light bg-dark justify-content-between" style="color: aliceblue;">
+      <a class="navbar-brand" style="color: aliceblue;">Registro  das Últimas Atividades </a>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar no Sistema" aria-label="Search" ng-model="campoPesquisa">
+
+      </form>
+    </nav>
+
+  </div>
+
+  <div class="card-body" style = "padding: 0.80rem;">
+
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th class="text-center">Nome</th>
+            <th class="text-center">Tipo de Serviço</th>
+            <th class="text-center">Empresa</th>
+            <th class="text-center">Documento</th>
+            <th class="text-center">Apartamento</th>
+            <th class="text-center">func_entrada</th>
+            <th class="text-center">Entrada</th>
+            <th class="text-center">func_saida</th>
+            <th class="text-center">Saida</th>
+     
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <tr ng-repeat="n in todos | filter : campoPesquisa"> <!-- pesquisa na lista de prestadores todos os registros que contenham o valor que esta em campoPesquisa -->
+              <td class="pt-3-half">[{n.prestador.nome}]</td>
+              <td class="pt-3-half">[{n.prestador.tipo_servico}]</td>
+              <td class="pt-3-half">[{n.prestador.empresa}]</td>
+              <td class="pt-3-half">[{n.prestador.doc}]</td>
+              <td class="pt-3-half">[{n.apt}]</td>
+              <td class="pt-3-half">[{n.user_entrada.nome}]</td>
+              <td class="pt-3-half">[{n.h_entrada}]</td>
+              <td class="pt-3-half">[{n.user_saida.nome}]</td>
+              <td class="pt-3-half">[{n.h_saida}]</td>
+          </tr>
+          <!-- This is our clonable table line -->
+    
+         
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+{% block js %} <!-- #bloco de conteudo -->
+<script src="{{ url_for('static', filename='JS/angular/registro.js') }}"></script>
+{% endblock %}
+
+
