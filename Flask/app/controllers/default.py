@@ -147,6 +147,7 @@ def baterPonto():
 @app.route("/teste") #nossa página principal
 def teste():
    try:
-      return render_template('teste.html')
+      
+      return render_template('teste.html',user = User.query.first())
    except:
       return traceback.format_exc()
