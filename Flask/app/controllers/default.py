@@ -5,7 +5,7 @@ from datetime import datetime as dt,date
 from flask_login import login_required,current_user, login_manager
 from app.models.uteis import ponto_required
 from sqlalchemy import Date, cast
-
+import traceback
 
 @app.route("/admin")
 @login_required
@@ -146,4 +146,7 @@ def baterPonto():
 
 @app.route("/teste") #nossa página principal
 def teste():
-   return render_template('teste.html')
+   try:
+      return render_template('teste.html')
+   except:
+      return traceback.format_exc()
