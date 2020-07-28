@@ -18,7 +18,7 @@ class UserSchema(ModelSchema):
     admin			= fields.Boolean()
 
 
-class PrestadorSchema(ma.ModelSchema):
+class PrestadorSchema(ModelSchema):
     id		        = fields.Integer()
     nome	        = fields.String() 		
     doc	            = fields.String()			
@@ -28,7 +28,7 @@ class PrestadorSchema(ma.ModelSchema):
     user            = fields.Nested(UserSchema)
 
 
-class ContrAcessSchema(ma.ModelSchema):
+class ContrAcessSchema(ModelSchema):
     id              = fields.Integer() 
     id_prestador    = fields.Integer()     
     apt             = fields.Integer()
@@ -41,7 +41,7 @@ class ContrAcessSchema(ma.ModelSchema):
     user_saida      = fields.Nested(UserSchema)
 
 
-class PontoSchema(ma.ModelSchema):
+class PontoSchema(ModelSchema):
     id              = fields.Integer() 
     id_ponto        = fields.Integer()     
     entrada         = fields.DateTime(format='%d/%m-%H:%M')
