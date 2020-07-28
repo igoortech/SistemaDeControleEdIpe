@@ -1,0 +1,117 @@
+{% extends 'base.html'%}
+
+{% block css %} <!-- #bloco de conteudo -->
+<style>
+    
+</style>
+{% endblock %}
+
+
+{% block content %}
+<!-- Editable table -->
+<div class="card">
+  <div class="p-3 mb-2 bg-dark text-white" style="margin-bottom: 40px;"><H2> Registre sua Entrada na hora certa!</H2></div>
+  <div class="card-body" style = "padding: 0.80rem;">
+    <div id="table">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <thead class="thead-dark">
+          <th class="text-center">Entrada</th>
+          <th class="text-center">Saída Almoço</th>
+          <th class="text-center">Volta Almoço</th>
+          <th class="text-center">Saída</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat ="x in registro_ponto">
+          
+          <td class="pt-3-half"><div style="padding: 10px;font-weight: bold;">[{x.entrada}]</div></td>
+         
+          <td class="pt-3-half" ng-if="x.saida_a != null" valign="center"><div style="padding: 10px;font-weight: bold;">[{x.saida_a}]</div></td>
+          <td class="pt-3-half" ng-if="x.saida_a == null">
+            <button class="btn btn-lg btn-info" ng-click="saida_a(x)" style="background-color: #bd1212;border-color:#bd1212;font-size: 1em;">
+              <span>Registrar</span>
+            </button>
+          </td>
+          <td class="pt-3-half" ng-if="x.volta_a != null"><div style="padding: 10px;font-weight: bold;">[{x.volta_a}]</div></td>
+          <td class="pt-3-half" ng-if="x.volta_a == null">
+            <button class="btn btn-lg btn-info" ng-click="volta_a(x)" style="background-color: #bd1212;border-color:#bd1212;font-size: 1em;">
+              <span>Registrar</span>
+            </button>
+          </td>
+          <td class="pt-3-half" ng-if="x.saida != null" valign="center"><div style="padding: 10px;font-weight: bold;">[{x.saida}]</div></td>
+          <td class="pt-3-half" ng-if="x.saida == null">
+            <button class="btn btn-lg btn-info" ng-click="saida(x)" style="background-color: #bd1212;border-color:#bd1212;font-size: 1em;">
+              <span>Registrar</span>
+            </button>
+          </td>
+        </tr>
+          <!-- This is our clonable table line -->
+          
+         
+        </tbody>
+      </table>
+      
+
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', function () {
+      $ = window.jQuery
+  })
+</script>
+
+<!-- Editable table -->
+{% endblock %}
+
+{% block modal %} 
+
+
+<div class="modal fade" id="modalyesno" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{confirm.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{confirm.message}]
+              </div>
+          </div> 
+          <div class="modal-footer">
+              <button type="button" class="btn btn-success" ng-click="confirm.func()">Sim</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="msgbox" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{msgbox.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{msgbox.message}]
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >OK</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block js %} <!-- #bloco de conteudo -->
+<script src="{{ url_for('static', filename='JS/angular/pontofun.js') }}"></script>
+{% endblock %}

@@ -1,8 +1,10 @@
 from flask import render_template, jsonify , redirect,url_for, request,flash
 from app import app,db #do módulo app(pasta), import a variável #app
-from app.models.tables import User,Prestador
-from datetime import datetime as dt
+from app.models.tables import User,Prestador,Ponto
+from datetime import datetime as dt,date
 from flask_login import login_required,current_user, login_manager
+from app.models.uteis import ponto_required
+from sqlalchemy import Date, cast
 
 
 @app.route("/admin")
@@ -42,8 +44,11 @@ def relatorio():
 ###################################################ROTAS DA PRINCIPAL ABAIXO. ROTAS DE LOGIN ACIMA.
 
 
+
+
 @app.route("/") #nossa página principal
 @login_required
+@ponto_required()
 def index():
   # if current_user.admin:
    #   return render_template('admin.html',user=current_user)
@@ -52,18 +57,28 @@ def index():
     
    return render_template('index.html',user=current_user)
 
+@app.route("/relogiofun")
+@login_required
+@ponto_required()
+def relogiofun():
+   return render_template('pontofun.html', user = current_user)
+
+
 @app.route("/registro")
 @login_required
+@ponto_required()
 def registro():
    return render_template('registro.html' ,user = current_user)
 
 @app.route("/cadastrar")
 @login_required
+@ponto_required()
 def cadastrar():
    return render_template("cadastrar.html", user=current_user)
    
 @app.route("/prestador")
 @login_required
+@ponto_required()
 def prestador():
    return render_template('prestador.html', user= current_user)
 
@@ -110,6 +125,23 @@ def insert():
 @app.route("/atualizar")
 def atualizar():
    return render_template('a')
+
+@app.route("/baterPonto")
+@login_required
+def baterPonto():
+
+   registro_ponto = Ponto.query.filter_by(id_ponto=current_user.id_ponto).filter(cast(Ponto.entrada,Date) == date.today()).first() #valida se a dar de hoje
+   #for igual a hoje
+
+   if registro_ponto: 
+      flash("já existe uma entrada para o dia de hoje!")
+      return render_template('baterPonto.html',user=current_user)
+
+   pt = Ponto(current_user.id_ponto,dt.now(),None,None,None)
+   db.session.add(pt)
+   db.session.commit()
+   return redirect(url_for('index'))
+      #return PontoSchema().dumps(registro_ponto[0])
 
 
 @app.route("/teste") #nossa página principal

@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+
+{% block css %} <!-- #bloco de conteudo -->
+<style>
+    
+</style>
+{% endblock %}
+
+
+{% block content %}
+<!-- Editable table -->
+<div class="card">
+  <div class="card-body row" style = "padding: 0.80rem;text-align: center;">
+    <div class="col-md-12">
+        <h4>para utilizar o sistema é necessario bater o ponto de entrada!</h4>
+    </div>
+   
+    <div class="col-md-7">
+        <form action="/baterPonto">
+            <button class="btn btn-lg btn-info" type="submit" style="background-color: #17b888;border-color:#17b888;float: right;margin-bottom: 10px;">
+                <span>Bater Ponto</span>
+            </button>
+        </form>
+    </div>
+  </div>
+</div>
+<!-- Editable table -->
+{% endblock %}

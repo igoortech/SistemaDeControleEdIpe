@@ -31,6 +31,10 @@
      margin-left: 0px; 
 }
   </style>
+
+    {% block css %}
+    {% endblock %}
+  
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl" >
@@ -60,6 +64,7 @@
               <li><a href="/cadastrar">Cadastrar</a></li>
               <li><a href="/prestador">Prestadores</a></li>
               <li><a href="/registro">Registro de Atividades</a></li>
+              <li><a href="/relogiofun">Relógio de Ponto</a></li>
 
               {% if user.admin %}
                 <li><a href="/addfun">Cadastrar Funcionario</a></li>

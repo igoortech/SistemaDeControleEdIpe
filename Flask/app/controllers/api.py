@@ -1,11 +1,12 @@
 from flask import jsonify,request
 from app import app,db
-from app.models.tables import User,Prestador,ControleAcesso
+from app.models.tables import User,Prestador,ControleAcesso,Ponto # tabelas do sqlalchemy
 from flask_login import login_required,current_user
-from app.models.marshmallow import ContrAcessSchema,PrestadorSchema,UserSchema
-from app.models.uteis import fields_required,mallowList
-from datetime import datetime as dt
-import json
+from app.models.marshmallow import ContrAcessSchema,PrestadorSchema,UserSchema,PontoSchema  #schemas do marshmallow 
+from app.models.uteis import fields_required,mallowList  #uteis
+from datetime import datetime as dt,date
+from sqlalchemy import Date, cast
+import json 
 
 
 @app.route("/api/controle_acesso/<saida>") #nossa página principal
@@ -128,3 +129,64 @@ def darSaida(fields):
         return "Saída realizada com sucesso!"
     else:
         return "Registro nao encontrado na base de dados!",400
+
+
+
+@app.route("/api/ponto", methods=["GET" , "POST"])
+@fields_required(["tipo"],methods=["POST"])
+#@login_required
+def ponto(fields):
+    if request.method == "GET":
+        registro_ponto = Ponto.query.filter_by(id_ponto=current_user.id_ponto).all()
+        formated = mallowList(PontoSchema,registro_ponto)
+        return jsonify(formated)
+    else:
+
+        if request.remote_addr != app.config['IP_PERMITIDO']: #tras o ip do roteador
+        #if request.headers["X-Forwarded-For"] != app.config['IP_PERMITIDO']: #tras o ip do roteador do cliente que está acessando
+            return "Rede local nao permitida para realizar esta operação!",400
+
+
+        registro_ponto = Ponto.query.filter_by(id_ponto=current_user.id_ponto).filter(cast(Ponto.entrada,Date) == date.today()).first() #valida se a dar de hoje
+        #for igual a hoje 
+
+        if fields["tipo"] == "entrada":
+            if registro_ponto: return "já existe uma entrada para o dia de hoje!",400
+            pt = Ponto(current_user.id_ponto,dt.now(),None,None,None)
+            db.session.add(pt)
+            #return PontoSchema().dumps(registro_ponto[0])
+
+        elif fields["tipo"] == "saida_a":
+            if registro_ponto and registro_ponto.saida_a != None : return "ponto já batido para este dia!",400
+            if not registro_ponto: return "Primeiro bata o ponto de entrada",400  
+            
+            registro_ponto.saida_a = dt.now()
+
+        elif fields["tipo"] == "volta_a":
+            if registro_ponto and registro_ponto.volta_a != None : return "ponto já batido para este dia!",400
+            if not registro_ponto: return "Primeiro bata o ponto de entrada",400  
+            if registro_ponto.saida_a == None: return "Primeiro bata o ponto de saida para almoço!",400
+
+            registro_ponto.volta_a = dt.now()
+
+        elif fields["tipo"] == "saida":
+            if registro_ponto and registro_ponto.saida != None : return "ponto já batido para este dia!",400
+            if not registro_ponto: return "Primeiro bata o ponto de entrada",400
+            
+            registro_ponto.saida = dt.now()
+
+        db.session.commit()
+        return "Registro salvo com sucesso!"
+
+       # registro_ponto = Ponto.query.filter_by(id_ponto=1).filter(cast(Ponto.entrada,Date) == date.today()).all()
+        #if registro_ponto:
+            #if fields["tipo"] == "entrada":
+            #    return "já existe uma entrada para o dia de hoje!"
+           # elif fields["tipo"] == "saida_a" and registro_ponto.saida_a 
+        
+   
+@app.route("/ip")
+def ip():
+    return request.remote_addr
+
+

@@ -129,4 +129,25 @@ class ControleAcesso(db.Model):
         return "<Controle %r>" % self.prestador.nome
 
 
-    	
+
+class Ponto(db.Model):
+    __tablename__ = "ponto" #titutlo da tabela
+
+    id              = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_ponto 		= db.Column(db.Integer,db.ForeignKey('users.id_ponto'),nullable=False) #id do usuário do ponto
+    entrada         = db.Column(db.DateTime(),nullable=False)
+    saida_a         = db.Column(db.DateTime())
+    volta_a	        = db.Column(db.DateTime())
+    saida			= db.Column(db.DateTime())
+    user            = db.relationship("User",foreign_keys=id_ponto) #tras as informações do id do banco relacionado
+  
+
+    def __init__(self,id_ponto,entrada,saida_a,volta_a,saida): #passar o que vamos receber para o construtor
+        self.id_ponto   = id_ponto     
+        self.entrada    = entrada 
+        self.saida      = saida_a      
+        self.volta_a    = volta_a          
+        self.saida      = saida
+
+    def __repr__(self):#uma forma bonitinha de exibir os registros
+        return "<Ponto %r>" % self.user.nome

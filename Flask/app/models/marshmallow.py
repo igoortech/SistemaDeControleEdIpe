@@ -38,3 +38,15 @@ class ContrAcessSchema(ma.ModelSchema):
     prestador       = fields.Nested(PrestadorSchema) 
     user_entrada    = fields.Nested(UserSchema) 
     user_saida      = fields.Nested(UserSchema)
+
+
+class PontoSchema(ma.ModelSchema):
+    id              = fields.Integer() 
+    id_ponto        = fields.Integer()     
+    entrada         = fields.DateTime(format='%d/%m-%H:%M')
+    saida_a         = fields.DateTime(format='%d/%m-%H:%M')
+    volta_a         = fields.DateTime(format='%d/%m-%H:%M')
+    saida           = fields.DateTime(format='%d/%m-%H:%M')
+    user            = fields.Nested(UserSchema) 
+
+

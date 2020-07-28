@@ -43,12 +43,23 @@ CREATE TABLE controle_acesso(
 	id_ponto_s 		INTEGER				FOREIGN KEY REFERENCES users(id_ponto) --quem deu saida
 )
 
+select * from ponto
+
+drop table ponto
 
 create table ponto (
 	id			INT IDENTITY(1,1) PRIMARY KEY,
-	id_ponto 	INTEGER	FOREIGN KEY REFERENCES users(id_ponto),
-	dataHora	DATETIME
+	id_ponto 	INTEGER	FOREIGN KEY REFERENCES users(id_ponto) NOT NULL,
+	entrada		DATETIME NOT NULL,
+	saida_a		DATETIME,
+	volta_a		DATETIME,
+	saida       DATETIME
 )
+
+truncate table ponto
+
+insert into ponto values
+(1, GETDATE(), NULL,NULL,NULL)
 
 select * from prestador
 
