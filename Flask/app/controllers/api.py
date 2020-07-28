@@ -187,6 +187,6 @@ def ponto(fields):
    
 @app.route("/ip")
 def ip():
-    return request.remote_addr
+    return request.headers["X-Forwarded-For"]
 
 
