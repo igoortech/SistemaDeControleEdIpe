@@ -1,8 +1,9 @@
 from app import ma
 from marshmallow import fields
+from marshmallow_sqlalchemy import ModelSchema
 
 
-class UserSchema(ma.ModelSchema):
+class UserSchema(ModelSchema):
     id_ponto        = fields.Integer() 
     nome            = fields.String()
     documento       = fields.String()
