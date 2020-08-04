@@ -17,8 +17,9 @@ class User(db.Model):
     username		= db.Column(db.String(255),nullable=False,unique=True)
     senha			= db.Column(db.String(255),nullable=False)
     admin			= db.Column(db.Boolean(),nullable=False)
+    status			= db.Column(db.Boolean(),nullable=False)
 
-    def __init__(self,id_ponto,nome,documento,data_admissao,func,entrada,saida,dia_folga,endereco,username,senha,admin): #passar o que vamos receber para o construtor
+    def __init__(self,id_ponto,nome,documento,data_admissao,func,entrada,saida,dia_folga,endereco,username,senha,admin,status): #passar o que vamos receber para o construtor
         self.id_ponto      = id_ponto     
         self.nome          = nome 
         self.documento     = documento      
@@ -31,6 +32,7 @@ class User(db.Model):
         self.username      = username     
         self.senha         = senha  
         self.admin         = admin
+        self.status        = status
 
     def is__valid(self):
         valida_tipos = ("id_ponto",int),("nome",str,255),("documento",str,255),("data_admissao",dt),("func",str,255),("entrada",time),("saida",time),("dia_folga",str,255),("endereco",str,255),("username",str,255),("senha",str,255),("admin",bool)
@@ -151,3 +153,20 @@ class Ponto(db.Model):
 
     def __repr__(self):#uma forma bonitinha de exibir os registros
         return "<Ponto %r>" % self.user.nome
+
+
+class Mural(db.Model):
+    __tablename__ = "mural" #titutlo da tabela
+
+    id              = db.Column(db.Integer,autoincrement=True,primary_key=True)
+    titulo          = db.Column(db.String(255),nullable=False)
+    mensagem        = db.Column(db.String(255),nullable=False)
+    validade	    = db.Column(db.Date(),nullable=False)
+   
+    def __init__(self,titulo,mensagem,validade): #passar o que vamos receber para o construtor
+        self.titulo       = titulo   
+        self.mensagem     = mensagem
+        self.validade     = validade     
+       
+    def __repr__(self):#uma forma bonitinha de exibir os registros
+        return "<Mural %r>" % self.id

@@ -4,6 +4,10 @@ select * from users
 select * from prestador
 
 
+select *  from ponto
+
+truncate table ponto
+
 CREATE TABLE users (
 	--id				INT IDENTITY(1,1),
 	id_ponto		INTEGER	PRIMARY KEY		NOT NULL,

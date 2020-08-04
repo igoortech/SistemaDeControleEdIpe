@@ -1,9 +1,23 @@
 {% extends 'base.html'%}
 
-{% block css %} <!-- #bloco de conteudo -->
-<style>
-    
-</style>
+
+
+{% block alerts %}
+
+    <div class="container">
+        <div class="row">
+            {% for registro in mural %}
+                <div class="col-md-6" style="padding: 10px;">
+                    <div class="alert alert-danger" role="alert" style="box-shadow: #dad2d2 5px 5px; text-align: center">
+                        <h3>{{ registro.titulo }}</h3>
+                        <hr>
+                        <p style="text-align: justify;">{{ registro.mensagem }}</p>
+                    </div>
+                </div>
+            {% endfor%}
+        </div>
+    </div>
+
 {% endblock %}
 
 
@@ -25,4 +39,9 @@
   </div>
 </div>
 <!-- Editable table -->
+{% endblock %}
+
+
+{% block js %} <!-- #bloco de conteudo -->
+<script src="{{ url_for('static', filename='JS/angular/empty.js') }}"></script>
 {% endblock %}

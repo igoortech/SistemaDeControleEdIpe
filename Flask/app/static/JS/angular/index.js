@@ -79,7 +79,7 @@ app.controller('myCtrl', ['$scope','$filter','$http','$sce', function ($scope, $
 
     $scope.msg = function(msg,tipo){
         if (tipo){
-            $scope.mensagem = $sce.trustAsHtml("<b>Sow! tudo certo:</b><br/>" + msg)
+            $scope.mensagem = $sce.trustAsHtml("<b>Show! tudo certo:</b><br/>" + msg)
             $scope.classmsg = 'alert-success'
         }else{
             $scope.mensagem = $sce.trustAsHtml("<b>Ops! algo deu errado:</b><br/>" + msg)

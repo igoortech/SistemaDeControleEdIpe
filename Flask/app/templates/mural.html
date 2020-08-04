@@ -1,0 +1,116 @@
+{% extends 'base.html'%}
+
+{% block css %} <!-- #bloco de conteudo -->
+<style>
+    
+</style>
+{% endblock %}
+
+
+{% block content %}
+<h1 style="margin-bottom: 30px;text-align: center;">Mural de Avisos Edifício Ipê</h1>
+<div style="box-shadow: black;">
+ <div class="row">
+    <div class="col-md-6">
+      <form>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6" style="padding: 10px;">
+              <input type="text" class="form-control" ng-model="registro.titulo" placeholder="Título da Mensagem">
+            </div>
+            <div class="col-md-6" style="padding: 10px;">
+              <input type="text" class="form-control" ng-model="registro.validade" placeholder="Validade da Mensagem">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" style="padding: 10px;">
+              <div class="form-group">
+                <textarea class="form-control" id="Mensagem" rows="3" ng-model="registro.mensagem" placeholder=" Insira sua Mensagem"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" style="padding: 10px;">
+              <button type="button" ng-click="enviarMensagem()" class="btn btn-danger btn-rounded btn-sm my-0 btn-block">Enviar</button>
+            </div>
+          </div>
+      
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th class="text-center">titulo</th>
+            <th class="text-center">validade</th>
+            <th class="text-center">ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in mensagens">
+            <td class="pt-3-half">[{x.titulo}]</td>
+            <td class="pt-3-half">[{x.validade}]</td>
+            <td>
+              <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0" ng-click="deletar(x)" >Deletar</button></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+        
+    </div>
+ </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block modal %}
+
+<div class="modal fade" id="modalyesno" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{confirm.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{confirm.message}]
+              </div>
+          </div> 
+          <div class="modal-footer">
+              <button type="button" class="btn btn-success" ng-click="confirm.func()">Sim</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="msgbox" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">[{msgbox.title}]</h5>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                [{msgbox.message}]
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >OK</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block js %} <!-- #bloco de conteudo -->
+<script src="{{ url_for('static', filename='JS/angular/mural.js') }}"></script>
+{% endblock %}

@@ -10,13 +10,32 @@
 {% block content %}
 <!-- Editable table -->
 <div class="card">
-  <div class="p-3 mb-2 bg-dark text-white" style="margin-bottom: 40px;"><H2> Registre sua Entrada na hora certa!</H2></div>
+  <div class="p-3 mb-2 bg-dark text-white" style="margin-bottom: 40px;">
+    {% if not user.admin%}
+    <H2> Registre sua Entrada na hora certa!</H2></div>
+    {%else%}
+    <H2> Entrada de Ponto de Funcionários!</H2></div>
+    {% endif %}
   <div class="card-body" style = "padding: 0.80rem;">
     <div id="table">
-      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      
+      <div class="row">
+        <div class="col-md-6" style="padding: 20px;">
+          <label style="padding: 8px;float:left">Funcionário: </label>
+          <select class="form-control" style="width:60%" ng-model="filterFunc" ng-options="x.user.nome for x in registro_ponto | unique : 'user':'nome'">
+            <option value = "" >Selecione um funcionario</option>
+          </select>
+        </div>
+        <div class="col-md-6" style="padding: 20px;">
+          <label style="padding: 8px;float:left">Data: </label>
+          <select class="form-control" style="width:60%" ng-model="filterDate" ng-options="x.data_entrada for x in registro_ponto | uniqueDate : 'data_entrada'">
+            <option value = "" >Selecione uma Data</option>
+          </select>
+        </div>
+      </div>
       <table class="table table-bordered table-responsive-md table-striped text-center">
         <thead class="thead-dark">
+          <th class="text-center">Funcionário</th>
           <th class="text-center">Entrada</th>
           <th class="text-center">Saída Almoço</th>
           <th class="text-center">Volta Almoço</th>
@@ -24,27 +43,45 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat ="x in registro_ponto">
-          
+        <tr ng-repeat ="x in registro_ponto | filter :filterFunc.user.nome | filterJson: 'data_entrada': filterDate.data_entrada ">
+          <td class="pt-3-half"><div style="padding: 10px;font-weight: bold;">[{x.user.nome}]</div></td>
           <td class="pt-3-half"><div style="padding: 10px;font-weight: bold;">[{x.entrada}]</div></td>
          
           <td class="pt-3-half" ng-if="x.saida_a != null" valign="center"><div style="padding: 10px;font-weight: bold;">[{x.saida_a}]</div></td>
           <td class="pt-3-half" ng-if="x.saida_a == null">
+            {% if not user.admin %}
             <button class="btn btn-lg btn-info" ng-click="saida_a(x)" style="background-color: #bd1212;border-color:#bd1212;font-size: 1em;">
               <span>Registrar</span>
             </button>
+            {% else %}
+            <div style="padding: 10px;font-weight: bold; color:#bd1212">
+              <span>Pendente</span>
+            </div>
+            {% endif %}
           </td>
           <td class="pt-3-half" ng-if="x.volta_a != null"><div style="padding: 10px;font-weight: bold;">[{x.volta_a}]</div></td>
           <td class="pt-3-half" ng-if="x.volta_a == null">
+            {% if not user.admin %}
             <button class="btn btn-lg btn-info" ng-click="volta_a(x)" style="background-color: #bd1212;border-color:#bd1212;font-size: 1em;">
               <span>Registrar</span>
             </button>
+            {% else %}
+            <div style="padding: 10px;font-weight: bold; color:#bd1212">
+              <span>Pendente</span>
+            </div>
+            {% endif %}
           </td>
           <td class="pt-3-half" ng-if="x.saida != null" valign="center"><div style="padding: 10px;font-weight: bold;">[{x.saida}]</div></td>
           <td class="pt-3-half" ng-if="x.saida == null">
+            {% if not user.admin %}
             <button class="btn btn-lg btn-info" ng-click="saida(x)" style="background-color: #bd1212;border-color:#bd1212;font-size: 1em;">
               <span>Registrar</span>
             </button>
+            {% else %}
+            <div style="padding: 10px;font-weight: bold; color:#bd1212">
+              <span>Pendente</span>
+            </div>
+            {% endif %}
           </td>
         </tr>
           <!-- This is our clonable table line -->

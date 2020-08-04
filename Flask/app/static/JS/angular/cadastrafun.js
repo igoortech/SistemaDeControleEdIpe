@@ -5,7 +5,7 @@ var app = angular.module('myApp', [], function($interpolateProvider) {
 });
 
 
-app.controller('myCtrl', ['$scope','$filter','$http','$sce', function ($scope, $filter,$http,$sce){
+app.controller('myCtrl', ['$scope','$filter','$http','$sce','$window', function ($scope, $filter,$http,$sce,$window){
   $scope.campos ={}
 
 
@@ -15,6 +15,7 @@ app.controller('myCtrl', ['$scope','$filter','$http','$sce', function ($scope, $
   }
 
   $scope.cadastra = function (){
+    
     if ($scope.campos.senha != $scope.campos.senha2){
         $scope.messageBox("Algo errado!", "Campos de senha devem ser iguais!")
         return
@@ -30,6 +31,9 @@ app.controller('myCtrl', ['$scope','$filter','$http','$sce', function ($scope, $
         data:$scope.campos
     }).then(function(response) {
         $scope.messageBox("Cadastrado realizado!!",response.data)
+        $scope.campos ={}
+        $window.location.href = '/func';
+        
     },function(response){
         $scope.messageBox("Algo errado!",response.data)
     })

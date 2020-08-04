@@ -18,6 +18,7 @@
       <table class="table table-bordered table-responsive-md table-striped text-center">
         <thead class="thead-dark">
           <tr>
+            {% if not user.admin %}
             <th class="text-center">Nome</th>
             <th class="text-center">Tipo de Serviço</th>
             <th class="text-center">Empresa</th>
@@ -27,12 +28,24 @@
             <th class="text-center">Entrada</th>
             <th class="text-center">func_saida</th>
             <th class="text-center">Saida</th>
-     
+            {% else %}
+            <th class="text-center">Nome</th>
+            <th class="text-center">Tipo de Serviço</th>
+            <th class="text-center">Empresa</th>
+            <th class="text-center">Documento</th>
+            <th class="text-center">Apartamento</th>
+            <th class="text-center">Deu-entrada</th>
+            <th class="text-center">Entrada</th>
+            <th class="text-center">Deu-saida</th>
+            <th class="text-center">Saida</th>
+            <th class="text-center">Ação</th>
+            {% endif %}
           </tr>
         </thead>
         <tbody>
           <tr>
             <tr ng-repeat="n in todos | filter : campoPesquisa"> <!-- pesquisa na lista de prestadores todos os registros que contenham o valor que esta em campoPesquisa -->
+              {% if not user.admin %}
               <td class="pt-3-half">[{n.prestador.nome}]</td>
               <td class="pt-3-half">[{n.prestador.tipo_servico}]</td>
               <td class="pt-3-half">[{n.prestador.empresa}]</td>
@@ -42,6 +55,20 @@
               <td class="pt-3-half">[{n.h_entrada}]</td>
               <td class="pt-3-half">[{n.user_saida.nome}]</td>
               <td class="pt-3-half">[{n.h_saida}]</td>
+              {% else %}
+                <td class="pt-3-half">[{n.prestador.nome}]</td>
+                <td class="pt-3-half">[{n.prestador.tipo_servico}]</td>
+                <td class="pt-3-half">[{n.prestador.empresa}]</td>
+                <td class="pt-3-half">[{n.prestador.doc}]</td>
+                <td class="pt-3-half">[{n.apt}]</td>
+                <td class="pt-3-half">[{n.user_entrada.nome}]</td>
+                <td class="pt-3-half">[{n.h_entrada}]</td>
+                <td class="pt-3-half">[{n.user_saida.nome}]</td>
+                <td class="pt-3-half">[{n.h_saida}]</td>
+                <td>
+              <a href=""><span class="table-remove"><button type="button" ng-click="selecionaRegistro(n)" class="btn btn-danger btn-rounded btn-sm my-0">Editar</button>
+              </span></a></td>
+              {% endif %}
           </tr>
           <!-- This is our clonable table line -->
     
@@ -55,6 +82,98 @@
 
 
 
+{% block modal %} 
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" aria-labelledby="mediumModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mediumModalLabel">Atualizar Dados de Prestadores</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="card-body" style="padding: 0px;">
+                         
+                  <ul class="nav nav-tabs" id="myTab" role="tablist" >
+                  </ul>
+                  <div class="tab-content pl-3 p-1" id="myTabContent">
+                      <div class="tab-pane fade show active" id="home" role="tabpanel">
+                          <div>
+                                <form>
+                                    <div class="form-group">
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <label for="formGroupExampleInput">Filtrar Prestadores</label>
+                                          <input type="text" class="form-control" ng-model="filteredPrestador"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label for="formGroupExampleInput">Prestador</label>
+                                          <select class="form-control" ng-options="x.nome for x in prestadores | filterJson :'nome':filteredPrestador:true" ng-model="selectedReg.prestador">
+                                            <option>Selecione um prestador</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                      <label for="formGroupExampleInput2">Apartamento</label>
+                                      <select class="form-control" ng-options="x for x in destinos" ng-model="selectedReg.apt">
+                                        <option>Selecione um Apartamento</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="formGroupExampleInput2">Func Entrada</label>
+                                      <select class="form-control" ng-options="x.nome for x in funcionarios" ng-model="selectedReg.user_entrada">
+                                        <option>Selecione um Funcionario</option>
+                                      </select>
+                                    </div>
+                                
+                                    <div class="form-group">
+                                      <label for="formGroupExampleInput2">Entrada</label>
+                                      <input type="text" class="form-control"  placeholder="01/01/2020 00:00" ng-model="selectedReg.h_entradaf">
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="formGroupExampleInput2">Func Saída</label>
+                                      <select class="form-control" ng-options="x.nome for x in funcionarios" ng-model="selectedReg.user_saida">
+                                        <option>Selecione um Funcionario</option>
+                                      </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="formGroupExampleInput2">Saida</label>
+                                      <input type="text" class="form-control"  placeholder="01/01/2020 00:00" ng-model="selectedReg.h_saidaf">
+                                    </div>
+
+                              <div class="row" ng-hide="flag_window">
+                                  <div class="col-6">
+                                      <button ng-click="alteraRegistro()" class="btn btn-lg btn-info btn-block" style="background-color: #17b888;border-color:#17b888">
+                                          <span>Salva Alterações</span>
+                                      </button>
+                                  </div>
+                                  <div class="col-6">
+                                    <button ng-click="excluir()" class="btn btn-lg btn-info btn-block" style="background-color: #b81717;border-color:#b81717">
+                                        <span>Excluir Registro</span>
+                                    </button>
+                                </div>
+                              </div>
+          
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="alert" ng-class="classmsg" role="alert" ng-init="mensagem=null" ng-show="mensagem" ng-bind-html="mensagem">
+              </div>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}
 
 {% block js %} <!-- #bloco de conteudo -->
 <script src="{{ url_for('static', filename='JS/angular/registro.js') }}"></script>

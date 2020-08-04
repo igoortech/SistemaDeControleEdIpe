@@ -17,11 +17,14 @@ def login():
 
         user_banco = User.query.filter_by(username=user).first()
         if user_banco:
-            if user_banco.senha == senha:
-                login_user(user_banco)  # autentica o usuario na sessao do sistema e coloca ele dentro do current_user
-                return redirect(url_for("index"))#redireciona para a rota
+            if user_banco.status: 
+                if user_banco.senha == senha:
+                    login_user(user_banco)  # autentica o usuario na sessao do sistema e coloca ele dentro do current_user
+                    return redirect(url_for("index"))#redireciona para a rota
+                else:
+                    flash("Senha incorreta!")
             else:
-                flash("Senha incorreta!")
+                flash("Usuario desativado!")
         else:
             flash("Usuario inexistente!")
 

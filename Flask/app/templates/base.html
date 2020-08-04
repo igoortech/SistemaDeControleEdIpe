@@ -37,6 +37,7 @@
   
 </head>
 
+
 <body ng-app="myApp" ng-controller="myCtrl" >
 
   <!-- ======= Top Bar ======= -->
@@ -60,6 +61,7 @@
     
           <nav class="nav-menu d-none d-lg-block">
             <ul>
+              
               <li class="active"><a href="/">Principal</a></li>
               <li><a href="/cadastrar">Cadastrar</a></li>
               <li><a href="/prestador">Prestadores</a></li>
@@ -69,8 +71,8 @@
               {% if user.admin %}
                 <li><a href="/addfun">Cadastrar Funcionario</a></li>
                 <li><a href="/func">Funcionários</a></li>
-                <li><a href="/relogio">Relógio de Ponto</a></li>
-                <li><a href="/Relatório">Relatório</a></li>
+                <li><a href="/relatorio">Relatório</a></li>
+                <li><a href="/mural">Mural de avisos</a></li>
               {% endif %}
 
 
@@ -88,6 +90,9 @@
     </div>
   </section>
 
+  {% block alerts %} 
+  
+  {% endblock %}
   <!-- ======= Header ======= -->
 
 
@@ -113,7 +118,7 @@
 
     <div class="footer-top">
       <div class="container">
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert alert-danger" role="alert">
           <ul class="flashes">
               {% for message in messages %}
               <li>{{message}}</li>

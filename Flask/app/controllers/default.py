@@ -19,6 +19,13 @@ def addfun():
    return render_template("cadastrafun.html" ,user=current_user)
 
 
+@app.route("/mural")
+@login_required
+def mural():
+
+   return render_template("mural.html", user = current_user)
+
+
 @app.route("/func")
 @login_required
 def func():
@@ -38,7 +45,7 @@ def relogio():
 @login_required
 def relatorio():
 
-   return render_template("relatorio.html")
+   return render_template("relatorio.html", user=current_user)
 
 
 ###################################################ROTAS DA PRINCIPAL ABAIXO. ROTAS DE LOGIN ACIMA.
@@ -129,7 +136,10 @@ def atualizar():
 @app.route("/baterPonto")
 @login_required
 def baterPonto():
-
+   if request.remote_addr != app.config['IP_PERMITIDO']: #tras o ip do roteador
+   #if request.headers["X-Forwarded-For"] != app.config['IP_PERMITIDO']: #tras o ip do roteador do cliente que está acessando
+               flash("Rede local nao permitida para realizar esta operação!")
+               return render_template('baterPonto.html',user=current_user)
    registro_ponto = Ponto.query.filter_by(id_ponto=current_user.id_ponto).filter(cast(Ponto.entrada,Date) == date.today()).first() #valida se a dar de hoje
    #for igual a hoje
 
