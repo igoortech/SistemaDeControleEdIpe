@@ -111,13 +111,17 @@
   </main>
   <!-- ======= Footer ======= -->
 
-  {% with messages = get_flashed_messages() %} <!--BLOCO RESPONSAVEL POR RECEBER OS ALERTAS DO BACK END-->
-  {% if messages %}
+  
 
   <footer id="footer">
-
     <div class="footer-top">
       <div class="container">
+
+        <div>
+          <h4 style="text-align: center;color:#31303078">Desenvolvido por Igor Damasceno e Melque Apolinario</h4>
+        </div>
+        {% with messages = get_flashed_messages() %} <!--BLOCO RESPONSAVEL POR RECEBER OS ALERTAS DO BACK END-->
+          {% if messages %}
         <div class="alert alert alert-danger" role="alert">
           <ul class="flashes">
               {% for message in messages %}
@@ -125,17 +129,19 @@
               {% endfor %}
           </ul>
           </div>
+          {% endif %}
+          {% endwith %} 
       </div>  
     </div>
   </footer>
-  {% endif %}
-{% endwith %}
+
 
 <!-- End Footer -->
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
   <!-- Vendor JS Files -->
+
   <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- Template Main JS File -->
