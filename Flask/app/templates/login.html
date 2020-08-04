@@ -87,7 +87,7 @@ img{
             <div class="row">
                 <div class="col-md-6 login-form-1" style="border-radius: 20px;">
                     <form action="login" method="POST">
-                        <img src="{{ url_for('static', filename='img/logo.png') }}"> {{form.csrf_token}} <!--segurança dos dados do formulario-->
+                        <img src="{{ url_for('static', filename='IMG/logo.png') }}"> {{form.csrf_token}} <!--segurança dos dados do formulario-->
                         <h3>Sistema de Controle Edifício IPÊ</h3>
                         <div class="form-group">
                             {{form.username(placeholder="Seu Usuário *",class="form-control")}}
