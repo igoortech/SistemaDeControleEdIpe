@@ -6,6 +6,8 @@ select * from prestador
 
 select *  from ponto
 
+truncate table p
+truncate table ponto
 truncate table ponto
 
 CREATE TABLE users (
@@ -21,10 +23,17 @@ CREATE TABLE users (
 	endereco		VARCHAR(255)			NOT NULL,
 	username		VARCHAR(255) UNIQUE		NOT NULL,
 	senha			VARCHAR(255)			NOT NULL,
-	[admin]			BINARY					NOT NULL
+	[admin]			BIT   					NOT NULL,
+	[status]        BIT  					NOT NULL
 )
 
-insert into users values ('5','bruno gay','123456978','2020','Boqueteiro','11:00','10pm','todo dia','rua do rato vei','bruno','321',0)
+alter table users alter column [status] BIT NOT NULL
+
+select * from users
+
+update users set [status] = 0 where id_ponto = 1
+
+insert into users values ('1','Gabriel Collares',null,null,'ADM',null,null,'Rua Hilário de Gouveia 120','gabriel','902',1)
 
 CREATE TABLE prestador (
 	id				INT IDENTITY(1,1) PRIMARY KEY,
@@ -60,7 +69,23 @@ create table ponto (
 	saida       DATETIME
 )
 
-truncate table ponto
+truncate table ponto   ok
+select * from ponto   ok
+
+delete from prestador
+delete from users
+delete from  controle_acesso
+
+truncate table prestador
+drop table prestador
+select * from prestador
+
+truncate table users
+drop table  users
+select * from users
+
+truncate table controle_acesso
+select * from controle_acesso
 
 insert into ponto values
 (1, GETDATE(), NULL,NULL,NULL)
@@ -74,5 +99,18 @@ insert into controle_acesso values (1,Null,DATEADD(hour,-3,getdate()),Null,1,Nul
 select * from users
 
 select DATEADD(hour,-3,getdate())
+
+Select *, CAST(validade as DATE) nova_data from mural
+
+select * from mural
+
+create table mural(
+	id INT IDENTITY (1,1) PRIMARY KEY,
+	titulo VARCHAR(200),
+	mensagem VARCHAR(MAX),
+	validade DATETIME
+)
+
+
 
 
