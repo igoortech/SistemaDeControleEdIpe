@@ -136,8 +136,8 @@ def atualizar():
 @app.route("/baterPonto")
 @login_required
 def baterPonto():
-   if request.remote_addr != app.config['IP_PERMITIDO']: #tras o ip do roteador
-   #if request.headers["X-Forwarded-For"] != app.config['IP_PERMITIDO']: #tras o ip do roteador do cliente que está acessando
+   #if request.remote_addr != app.config['IP_PERMITIDO']: #tras o ip do roteador
+   if request.headers["X-Forwarded-For"] != app.config['IP_PERMITIDO']: #tras o ip do roteador do cliente que está acessando
                flash("Rede local nao permitida para realizar esta operação!")
                return render_template('baterPonto.html',user=current_user)
    registro_ponto = Ponto.query.filter_by(id_ponto=current_user.id_ponto).filter(cast(Ponto.entrada,Date) == date.today()).first() #valida se a dar de hoje
