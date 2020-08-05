@@ -228,8 +228,8 @@ def ponto(fields):
         return jsonify(formated)
     else:
 
-        if request.remote_addr != app.config['IP_PERMITIDO']: #tras o ip do roteador
-        #if request.headers["X-Forwarded-For"] != app.config['IP_PERMITIDO']: #tras o ip do roteador do cliente que está acessando
+        #if request.remote_addr != app.config['IP_PERMITIDO']: #tras o ip do roteador
+        if request.headers["X-Forwarded-For"] != app.config['IP_PERMITIDO']: #tras o ip do roteador do cliente que está acessando
             return "Rede local nao permitida para realizar esta operação!",400
 
 
