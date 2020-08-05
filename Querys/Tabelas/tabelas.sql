@@ -33,7 +33,7 @@ select * from users
 
 update users set [status] = 0 where id_ponto = 1
 
-insert into users values ('1','Gabriel Collares',null,null,'ADM',null,null,'Rua Hilário de Gouveia 120','gabriel','902',1)
+insert into users values (1,'Gabriel Collares','123456789','2020','ADM','00:00','00:00','Sab/Dom','Rua Hilário de Gouveia 120','gabriel','902',1,1)
 
 CREATE TABLE prestador (
 	id				INT IDENTITY(1,1) PRIMARY KEY,
